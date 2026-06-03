@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  blockchain-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 42-blockchain-node
+    ports:
+      - "8000:8000"
+    volumes:
+      - blockchain-data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    networks:
+      - blockchain-network
+
+volumes:
+  blockchain-data:
+    driver: local
+
+networks:
+  blockchain-network:
+    driver: bridge
